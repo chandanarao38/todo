@@ -90,12 +90,12 @@ app.get('/todos/:todoId/', async (request, response) => {
 
 //API 3
 app.post('/todos/', async (request, response) => {
+  const {id, todo, priority, status} = request.body
   const postTodoQuery = `
-    INSERT INTO todo(Id, todo, priority, status)
-    VALUES (10, "Finalize event theme", "HIGH", "TO DO")
+    INSERT INTO todo (Id, todo, priority, status)
+    VALUES (${id}, '${todo}', '${priority}', '${status}')
   `
-  const dbResponse = await db.run(postTodoQuery)
-  const todoId = dbResponse.lastId
+  await db.run(postTodoQuery)
   response.send('Todo Successfully Added')
 })
 
